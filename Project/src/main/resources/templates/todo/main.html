@@ -5,7 +5,10 @@
     <title>Основная</title>
 </head>
 <body>
-   <p> Добро пожаловать пользователь .....</p>
+   <p> Ваша страница </p>
     <p th:text="${client.getLogin()}">login</p>
+   <a href="/tasks/create">
+       <input type="submit" value="Создать новую задачу"/>
+   </a>
 </body>
 </html>

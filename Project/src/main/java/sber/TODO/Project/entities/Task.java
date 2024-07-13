@@ -5,9 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "task")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class Task {
 
     @Column(nullable = false)
     String description;
-    
+
     @Column(nullable = false)
-    Date date;
+    LocalDateTime date;
 }

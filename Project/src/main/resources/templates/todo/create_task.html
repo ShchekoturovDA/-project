@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача</title>
+</head>
+<body>
+    <form method="POST" th:action="@{/tasks/add}">
+        <label for="name"> name </label>
+        <input name="name" type="text" id="name"/>
+        <br>
+
+        <label for="description"> description </label>
+        <input name="description" type="text" id="description"/>
+        <br>
+
+        <label for="date"> email </label>
+        <input name="date" type="datetime-local" id="date"/>
+        <br>
+
+        <input type="submit" value="New Task">
+    </form>
+
+</body>
+</html>

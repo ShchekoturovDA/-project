@@ -19,9 +19,10 @@ public class ClientController {
     private ClientService clientService;
 
     @PostMapping("/add")
-    public String save(@ModelAttribute("client") Client client, Model model) throws URISyntaxException {
+    public String save(@ModelAttribute("client") Client client, Model model) {
         if (!clientService.existByLogin(client)) {
-            model.addAttribute("lclient", clientService.save(client));
+            clientService.save(client);
+            model.addAttribute("client", client);
             return "/todo/main";
         } else {
             return "/reg";
@@ -29,9 +30,9 @@ public class ClientController {
     }
 
     @PostMapping("/sign_in")
-    public String sign(@ModelAttribute("client") Client client, Model model) throws URISyntaxException {
+    public String sign(@ModelAttribute("client") Client client, Model model){
         if (clientService.exist(client)) {
-//            model.addAttribute("client", clientService.findByLogin(client.getLogin()));
+            model.addAttribute("client", clientService.findByLogin(client.getLogin()));
             return "/todo/main";
         } else {
             return "/sign_in";
