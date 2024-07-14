@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача</title>
+</head>
+<body>
+    <div>
+        Название: <p th:text="${task.name}">name</p>
+
+        Описание: <p th:text="${task.description}">description</p>
+
+        Сроки: <p th:text="${task.date}">name</p>
+
+        Статус:
+        <span th:if="${task.done == 'true'}">Выполнено</span>
+        <span th:unless="${task.done == 'false'}">Невыполнено</span>
+    </div>
+
+    <a th:href="@{/tasks/edit/{id}(id=${task.getId()})}">
+        <input type="submit" value="Поправить"/>
+    </a>
+    <br/>
+    <a th:href="@{/tasks/delete/{id}(id=${task.getId()})}">
+        <input type="submit" value="Удалить"/>
+    </a>
+
+</body>
+</html>

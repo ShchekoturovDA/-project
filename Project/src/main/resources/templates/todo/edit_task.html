@@ -2,12 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Задача</title>
+    <title>Поправка</title>
 </head>
 <body>
-    <p>Новая задача</p>
-    <p>login</p>
-    <form th:method="post" th:action="@{/tasks/add}" th:object="${task}">
+    <form th:method="post" th:action="@{/tasks/edit/{id}(id=${task.getId()})}" th:object="${task}">
         <label for="name"> name </label>
         <input name="name" type="text" id="name" th:field="*{name}"/>
         <br>
@@ -20,7 +18,7 @@
         <input name="date" type="datetime-local" id="date" th:field="*{date}"/>
         <br>
 
-        <input type="submit" value="New Task">
+        <input type="submit" value="Поменять">
     </form>
 
 </body>

@@ -22,18 +22,16 @@ public class ClientController {
     public String save(@ModelAttribute("client") Client client, Model model) {
         if (!clientService.existByLogin(client)) {
             clientService.save(client);
-            model.addAttribute("client", client);
-            return "/todo/main";
+            return "redirect:/tasks/main";
         } else {
             return "/reg";
         }
     }
 
     @PostMapping("/sign_in")
-    public String sign(@ModelAttribute("client") Client client, Model model){
+    public String sign(@ModelAttribute("client") Client client){
         if (clientService.exist(client)) {
-            model.addAttribute("client", clientService.findByLogin(client.getLogin()));
-            return "/todo/main";
+            return "redirect:/tasks/main";
         } else {
             return "/sign_in";
         }

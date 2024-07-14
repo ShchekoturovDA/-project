@@ -25,4 +25,6 @@ public class Task {
 
     @Column(nullable = false)
     LocalDateTime date;
+
+    boolean done = false;
 }

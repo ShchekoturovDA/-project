@@ -6,9 +6,16 @@
 </head>
 <body>
    <p> Ваша страница </p>
-    <p th:text="${client.getLogin()}">login</p>
+    <p>login</p>
+
+   <div th:each = "task : ${tasks}">
+       <a th:text="${task.getName()}"
+            th:href="@{show/{id}(id=${task.getId()})}">task</a>
+   </div>
+
    <a href="/tasks/create">
        <input type="submit" value="Создать новую задачу"/>
    </a>
 </body>
 </html>
+<!-- th:text="${client.getLogin()}" -->
