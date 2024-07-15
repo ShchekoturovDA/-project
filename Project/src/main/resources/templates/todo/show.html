@@ -6,15 +6,22 @@
 </head>
 <body>
     <div>
-        Название: <p th:text="${task.name}">name</p>
+        Название: <p th:text="${task.getName()}">name</p>
 
-        Описание: <p th:text="${task.description}">description</p>
+        Описание: <p th:text="${task.getDescription()}">description</p>
 
-        Сроки: <p th:text="${task.date}">name</p>
+        Сроки: <p th:text="${task.getDate()}">name</p>
 
         Статус:
-        <span th:if="${task.done == 'true'}">Выполнено</span>
-        <span th:unless="${task.done == 'false'}">Невыполнено</span>
+        <span th:if="${task.isDone() == true}">Выполнено</span>
+        <span th:if="${task.isDone() == false}">Невыполнено</span>
+
+        <br>
+        Приоритет:
+        <span th:if="${task.getPrior() == 1}">Срочно</span>
+        <span th:if="${task.getPrior() == 2}">В темпе</span>
+        <span th:if="${task.getPrior() == 3}">Подождёт</span>
+
     </div>
 
     <a th:href="@{/tasks/edit/{id}(id=${task.getId()})}">

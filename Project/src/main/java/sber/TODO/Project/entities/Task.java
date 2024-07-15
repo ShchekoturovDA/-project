@@ -15,16 +15,20 @@ import java.time.LocalDateTime;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
     @Column(nullable = false)
-    String name;
+    private String name;
 
     @Column(nullable = false)
-    String description;
+    private String description;
 
     @Column(nullable = false)
-    LocalDateTime date;
+    private LocalDateTime date;
 
-    boolean done = false;
+    @Column(nullable = false)
+    private int prior;
+
+    @Column(nullable = false)
+    private boolean done = false;
 }

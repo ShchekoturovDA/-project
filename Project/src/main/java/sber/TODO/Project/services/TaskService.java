@@ -35,4 +35,12 @@ public class TaskService {
     public void deleteById(long id) {
         taskRepository.deleteById(id);
     }
+
+    public List<Task> findAllByString(String search) {
+        return taskRepository.findAllByString(search);
+    }
+
+    public List<Task> findAllByStringAndDate(String search, LocalDateTime date) {
+        return taskRepository.findAllByStringAndDate(search, date);
+    }
 }

@@ -16,9 +16,16 @@
         <input name="description" type="text" id="description" th:field="*{description}"/>
         <br>
 
-        <label for="date"> email </label>
+        <label for="date"> Дата </label>
         <input name="date" type="datetime-local" id="date" th:field="*{date}"/>
         <br>
+
+        <label for="prior"> Приоритет </label>
+        <select name="prior" id="prior" th:field="*{prior}">
+            <option value=1>Срочно</option>
+            <option value=2>В темпе</option>
+            <option value=3>Подождёт</option>
+        </select>
 
         <input type="submit" value="New Task">
     </form>

@@ -7,10 +7,27 @@
 <body>
    <p> Ваша страница </p>
     <p>login</p>
+   <form action="/tasks/main" method="get">
+       <select name="filter" id="filter">
+           <option value="">Все</option>
+           <option value="done">Выполненые</option>
+           <option value="in_process">Невыполненые</option>
+       </select>
+       <input type="submit" value="Фильтр по статусу"/>
+   </form>
+   <form action="/tasks/search">
+       <input type="text" name="search" id="search">
+       <input type="submit" value="Поиск"/>
 
+       <label for="date"> Дата </label>
+       <input name="date" type="datetime-local" id="date"/>
+
+   </form>
    <div th:each = "task : ${tasks}">
-       <a th:text="${task.getName()}"
+       <a th:style="${task.isDone() == true ? 'color:gray;' : 'color:black;'}" th:text="${task.getName()}"
             th:href="@{show/{id}(id=${task.getId()})}">task</a>
+       <a th:href="@{status/{id}(id=${task.getId()})}"> <input type="submit" value="Изменить статус"> </a>
+
    </div>
 
    <a href="/tasks/create">

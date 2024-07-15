@@ -18,6 +18,13 @@
         <input name="date" type="datetime-local" id="date" th:field="*{date}"/>
         <br>
 
+        <label for="prior"> Приоритет </label>
+        <select name="prior" id="prior" th:field="*{prior}">
+            <option value=1>Срочно</option>
+            <option value=2>В темпе</option>
+            <option value=3>Подождёт</option>
+        </select>
+
         <input type="submit" value="Поменять">
     </form>
 

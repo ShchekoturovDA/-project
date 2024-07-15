@@ -10,6 +10,8 @@ import sber.TODO.Project.services.TaskService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/tasks")
@@ -25,8 +27,8 @@ public class TaskController {
     }
 
     @RequestMapping("/main")
-    public String showMainPage(Model model,@RequestParam(required = false, defaultValue = "") String filter){
-        if(filter.equals("")) {
+    public String showMainPage(Model model, @RequestParam(required = false, defaultValue = "all") String filter){
+        if(filter.equals("all")) {
             model.addAttribute("tasks", taskService.findAll());
         } else if (filter.equals("done")) {
             model.addAttribute("tasks", taskService.findByDone(true));
@@ -49,6 +51,27 @@ public class TaskController {
         model.addAttribute("task", taskService.findOneById(id));
         return "todo/show";
     }
+
+    @GetMapping("/status/{id}")
+    public String show(@PathVariable long id){
+        Task task = taskService.findOneById(id);
+        task.setDone(!task.isDone());
+        taskService.save(task);
+        return "redirect:/tasks/main";
+    }
+
+    @GetMapping("/search")
+    public String search(Model model, @RequestParam(required = false) String search, @RequestParam(required = false) LocalDateTime date){
+        List<Task> tasks = new ArrayList<Task>();
+        if(date == null) {
+            tasks = taskService.findAllByString(search);
+        } else {
+            tasks = taskService.findAllByStringAndDate(search, date);
+        }
+        model.addAttribute("tasks", tasks);
+        return "todo/main";
+    }
+
 
     @GetMapping("/edit/{id}")
     public String editPage(@PathVariable long id, Model model){
