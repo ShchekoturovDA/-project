@@ -32,7 +32,7 @@
 
     </div>
 
-    <a th:href="@{/tasks/edit/{id}(id=${task.getId()})}">
+    <a th:if="${task.isDone == false}" th:href="@{/tasks/edit/{id}(id=${task.getId()})}">
         <input type="submit" value="Поправить"/>
     </a>
     <br/>

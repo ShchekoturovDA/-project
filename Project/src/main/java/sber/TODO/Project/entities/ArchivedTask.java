@@ -1,8 +1,6 @@
 package sber.TODO.Project.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,22 +13,16 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class ArchivedTask {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
-    @NotBlank(message = "Напиши что-нибудь")
     @Column(nullable = false)
     private String name;
 
-    @NotBlank(message = "Напиши что-нибудь")
     @Column(nullable = false)
     private String description;
 
-    @NotNull(message = "Выбери дату")
     @Column(nullable = false)
     private LocalDateTime date;
 
@@ -38,7 +30,7 @@ public class ArchivedTask {
     private int prior;
 
     @Column(nullable = false)
-    private boolean done = false;
+    private boolean done;
 
     @Column(nullable = false)
     private Category category;

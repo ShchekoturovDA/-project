@@ -6,6 +6,7 @@ import sber.TODO.Project.repositories.TaskRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -28,8 +29,8 @@ public class TaskService {
         return taskRepository.findAllByDone(done);
     }
 
-    public Task findOneById(long id) {
-        return taskRepository.findById(id).get();
+    public Optional<Task> findOneById(long id) {
+        return taskRepository.findById(id);
     }
 
     public void deleteById(long id) {

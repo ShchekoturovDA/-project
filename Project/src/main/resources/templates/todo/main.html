@@ -23,11 +23,15 @@
        <input name="date" type="datetime-local" id="date"/>
 
    </form>
+   <div th:each = "archive : ${archives}">
+       <a style="color: gray" th:text="${archive.getName()}"
+          th:href="@{show/{id}(id=${archive.getId()})}">task</a>
+   </div>
    <div th:each = "task : ${tasks}">
        <a th:style="${task.isDone() == true ? 'color:gray;' : 'color:black;'}" th:text="${task.getName()}"
             th:href="@{show/{id}(id=${task.getId()})}">task</a>
        <a th:href="@{status/{id}(id=${task.getId()})}"> <input type="submit" value="Изменить статус"> </a>
-
+       <a th:if="${task.isDone() == true}" th:href="@{archive/{id}(id=${task.getId()})}"> <input type="submit" value="Архивировать"> </a>
    </div>
 
    <a href="/tasks/create">
