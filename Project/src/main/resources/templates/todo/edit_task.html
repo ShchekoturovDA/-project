@@ -8,14 +8,17 @@
     <form th:method="post" th:action="@{/tasks/edit/{id}(id=${task.getId()})}" th:object="${task}">
         <label for="name"> name </label>
         <input name="name" type="text" id="name" th:field="*{name}"/>
+        <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
         <br>
 
         <label for="description"> description </label>
         <input name="description" type="text" id="description" th:field="*{description}"/>
+        <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Name Error</div>
         <br>
 
-        <label for="date"> email </label>
+        <label for="date"> Дата </label>
         <input name="date" type="datetime-local" id="date" th:field="*{date}"/>
+        <div style="color:red" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Name Error</div>
         <br>
 
         <label for="prior"> Приоритет </label>

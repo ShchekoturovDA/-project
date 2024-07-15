@@ -1,9 +1,11 @@
 package sber.TODO.Project.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import sber.TODO.Project.entities.Task;
 import sber.TODO.Project.services.TaskService;
@@ -41,9 +43,12 @@ public class TaskController {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute("task") Task task){
-        taskService.save(task);
-        return "redirect:/tasks/main";
+    public String save(@Valid @ModelAttribute("task") Task task, BindingResult bindingResult){
+        if(!bindingResult.hasErrors()) {
+            taskService.save(task);
+            return "redirect:/tasks/main";
+        }
+        return "/todo/create_task";
     }
 
     @GetMapping("/show/{id}")
@@ -80,10 +85,13 @@ public class TaskController {
     }
 
     @PostMapping("/edit/{id}")
-    public String edit(@ModelAttribute("task") Task task, @PathVariable long id){
-        task.setId(id);
-        taskService.save(task);
-        return "redirect:/tasks/show/" + id;
+    public String edit(@ModelAttribute("task") @Valid Task task, BindingResult bindingResult, @PathVariable long id){
+        if(!bindingResult.hasErrors()) {
+            task.setId(id);
+            taskService.save(task);
+            return "redirect:/tasks/show/" + id;
+        }
+        return "todo/edit_task";
     }
 
     @GetMapping("/delete/{id}")
