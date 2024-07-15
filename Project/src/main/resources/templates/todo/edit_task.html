@@ -25,6 +25,14 @@
             <option value=3>Подождёт</option>
         </select>
 
+        <label for="category"> Категория </label>
+        <select name="category" id="category" th:field="*{category}">
+            <option value='OTHER'>Всякое</option>
+            <option value='WORK'>Работа</option>
+            <option value='HEALTH'>Здоровье</option>
+            <option value='REST'>Отдых</option>
+        </select>
+
         <input type="submit" value="Поменять">
     </form>
 

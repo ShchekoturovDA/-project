@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sber.TODO.Project.Category;
 
 import java.time.LocalDateTime;
 
@@ -31,4 +32,7 @@ public class Task {
 
     @Column(nullable = false)
     private boolean done = false;
+
+    @Column(nullable = false)
+    private Category category;
 }
