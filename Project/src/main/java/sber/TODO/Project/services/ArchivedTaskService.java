@@ -1,5 +1,6 @@
 package sber.TODO.Project.services;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import sber.TODO.Project.entities.ArchivedTask;
 import sber.TODO.Project.entities.Task;
@@ -19,11 +20,11 @@ public class ArchivedTaskService {
     }
 
     public List<ArchivedTask> findAllByString(String search) {
-        return  archivedTaskRepository.findAllByString(search);
+        return  archivedTaskRepository.findAllByString(search, Sort.by("date", "prior").ascending());
     }
 
     public List<ArchivedTask> findAllByStringAndDate(String search, LocalDateTime date) {
-        return archivedTaskRepository.findAllByStringAndDate(search, date);
+        return archivedTaskRepository.findAllByStringAndDate(search, date, Sort.by("date", "prior").ascending());
     }
 
     public void save(ArchivedTask archivedTask) {
