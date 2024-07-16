@@ -2,6 +2,7 @@ package sber.TODO.Project.services;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import sber.TODO.Project.entities.Client;
 import sber.TODO.Project.entities.Task;
 import sber.TODO.Project.repositories.TaskRepository;
 
@@ -38,11 +39,13 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public List<Task> findAllByString(String search) {
-        return taskRepository.findAllByString(search, Sort.by("date", "prior").ascending());
+
+    public List<Task> findByClient(Client client) {
+        return taskRepository.findAllByClient(client, Sort.by("date", "prior").ascending());
     }
 
-    public List<Task> findAllByStringAndDate(String search, LocalDateTime date) {
-        return taskRepository.findAllByStringAndDate(search, date, Sort.by("date", "prior").ascending());
+    public List<Task> findAllByStringAndUser(String search, Client client) {
+        return taskRepository.findAllByStringAndClient(search, client, Sort.by("date", "prior").ascending());
     }
+
 }

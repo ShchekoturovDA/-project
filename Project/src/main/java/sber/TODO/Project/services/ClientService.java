@@ -1,6 +1,11 @@
 package sber.TODO.Project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import sber.TODO.Project.entities.Client;
 import sber.TODO.Project.repositories.ClientRepository;
@@ -8,7 +13,7 @@ import sber.TODO.Project.repositories.ClientRepository;
 import java.util.Optional;
 
 @Service
-public class ClientService {
+public class ClientService implements UserDetailsService {
 
     private final ClientRepository clientRepository;
 
@@ -29,11 +34,26 @@ public class ClientService {
         return clientRepository.existsByLogin(client.getLogin());
     }
 
-    public boolean exist(Client client){
-        return clientRepository.existsByLoginAndPasswordAndEmail(client.getLogin(), client.getPassword(), client.getEmail());
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Client> optionalClient = clientRepository.findByLogin(username);
+        if (optionalClient.isPresent()){
+            Client client = optionalClient.get();
+            return User.builder()
+                    .username(client.getLogin())
+                    .password(client.getPassword())
+                    .roles("USER")
+                    .build();
+        } else {
+            throw new UsernameNotFoundException(username);
+        }
     }
 
-    public Client findByLogin(String login){
-        return clientRepository.findByLogin(login);
+    public boolean existByLoginAndPasswordAndEmail(Client client) {
+        return clientRepository.existsByLoginAndPasswordAndEmail(client.getLogin(), client.getPassword(), client.getEmail() );
+    }
+
+    public Client findByLogin(String username) {
+        return clientRepository.findByLogin(username).get();
     }
 }

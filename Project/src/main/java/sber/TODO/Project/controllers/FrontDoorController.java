@@ -11,17 +11,19 @@ public class FrontDoorController {
 
     @RequestMapping("/")
     public String justGet(){
-        return "index";
+        return "/for_all/index";
     }
 
     @RequestMapping("/reg")
     public String regIn(Model model){
-        return "/reg";
+        model.addAttribute("client", new Client());
+        return "/for_all/reg";
     }
 
     @RequestMapping("/sign_in")
     public String signIn(Model model){
-        return "/sign_in";
+        model.addAttribute("client", new Client());
+        return "/for_all/sign_in";
     }
 
 

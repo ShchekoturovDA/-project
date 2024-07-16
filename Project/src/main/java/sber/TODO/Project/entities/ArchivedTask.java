@@ -34,4 +34,8 @@ public class ArchivedTask {
 
     @Column(nullable = false)
     private Category category;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "client_id")
+    private Client client;
 }

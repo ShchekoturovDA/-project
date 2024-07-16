@@ -10,8 +10,7 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, Long> {
     public boolean existsByLogin(String login);
 
-    public Client findByLogin(String login);
+    public Optional<Client> findByLogin(String login);
 
-    public boolean existsByLoginAndPasswordAndEmail(String login, String password, String email);
-
+    boolean existsByLoginAndPasswordAndEmail(String login, String password, String email);
 }

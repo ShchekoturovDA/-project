@@ -4,16 +4,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import sber.TODO.Project.entities.ArchivedTask;
+import sber.TODO.Project.entities.Client;
 import sber.TODO.Project.entities.Task;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ArchivedTaskRepository extends JpaRepository<ArchivedTask, Long> {
-    @Query("SELECT t FROM ArchivedTask t WHERE t.name LIKE %?1% or t.description LIKE %?1%")
-    List<ArchivedTask> findAllByString(String search, Sort ascending);
+    @Query("SELECT t FROM ArchivedTask t WHERE (t.name LIKE %?1% or t.description LIKE %?1%) AND client=?2")
+    List<ArchivedTask> findAllByStringAndClient(String search, Client client, Sort ascending);
 
-    @Query("SELECT t FROM ArchivedTask t WHERE (t.name LIKE %?1% or t.description LIKE %?1%) and t.date <= ?2")
-    List<ArchivedTask> findAllByStringAndDate(String search, LocalDateTime date, Sort ascending);
+/*    @Query("SELECT t FROM ArchivedTask t WHERE (t.name LIKE %?1% or t.description LIKE %?1%) and t.date <= ?2")
+    List<ArchivedTask> findAllByStringAndDate(String search, LocalDateTime date, Sort ascending);*/
 
 }

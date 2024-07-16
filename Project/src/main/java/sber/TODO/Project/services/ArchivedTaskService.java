@@ -3,6 +3,7 @@ package sber.TODO.Project.services;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import sber.TODO.Project.entities.ArchivedTask;
+import sber.TODO.Project.entities.Client;
 import sber.TODO.Project.entities.Task;
 import sber.TODO.Project.repositories.ArchivedTaskRepository;
 import sber.TODO.Project.repositories.TaskRepository;
@@ -19,13 +20,12 @@ public class ArchivedTaskService {
         this.archivedTaskRepository = archivedtaskRepository;
     }
 
-    public List<ArchivedTask> findAllByString(String search) {
-        return  archivedTaskRepository.findAllByString(search, Sort.by("date", "prior").ascending());
+ /*   public List<ArchivedTask> findAllByString(String search) {
     }
 
-    public List<ArchivedTask> findAllByStringAndDate(String search, LocalDateTime date) {
+   public List<ArchivedTask> findAllByStringAndDate(String search, LocalDateTime date) {
         return archivedTaskRepository.findAllByStringAndDate(search, date, Sort.by("date", "prior").ascending());
-    }
+    }*/
 
     public void save(ArchivedTask archivedTask) {
         archivedTaskRepository.save(archivedTask);
@@ -37,5 +37,9 @@ public class ArchivedTaskService {
 
     public void deleteById(long id) {
         archivedTaskRepository.deleteById(id);
+    }
+
+    public List<ArchivedTask> findAllByStringAndClient(String search, Client client) {
+        return  archivedTaskRepository.findAllByStringAndClient(search, client, Sort.by("date", "prior").ascending());
     }
 }
