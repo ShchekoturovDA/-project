@@ -30,12 +30,22 @@
             <option value=3>Подождёт</option>
         </select>
 
+        <br>
         <label for="category"> Категория </label>
         <select name="category" id="category" th:field="*{category}">
             <option value='OTHER'>Всякое</option>
             <option value='WORK'>Работа</option>
             <option value='HEALTH'>Здоровье</option>
             <option value='REST'>Отдых</option>
+        </select>
+
+        <br>
+        <label for="repeatable"> Частота </label>
+        <select name="repeatable" id="repeatable" th:field="*{repeatable}">
+            <option value='ONCE'>Уникальная</option>
+            <option value='DAY'>Ежедневная</option>
+            <option value='WEEK'>Еженедельная</option>
+            <option value='MONTH'>Ежемесячная</option>
         </select>
 
 

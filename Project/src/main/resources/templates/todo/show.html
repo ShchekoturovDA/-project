@@ -30,6 +30,13 @@
         <span th:if="${task.getCategory().toString() == 'HEALTH'}">Здоровье</span>
         <span th:if="${task.getCategory().toString() == 'REST'}">Отдых</span>
 
+        <br>
+        Частота:
+        <span th:if="${task.getRepeatable().toString() == 'ONCE'}">Уникальная</span>
+        <span th:if="${task.getRepeatable().toString() == 'DAY'}">Ежедневная</span>
+        <span th:if="${task.getRepeatable().toString() == 'WEEK'}">Еженедельная</span>
+        <span th:if="${task.getRepeatable().toString() == 'MONTH'}">Ежемесячная</span>
+
     </div>
 
     <a th:if="${task.isDone == false}" th:href="@{/tasks/edit/{id}(id=${task.getId()})}">

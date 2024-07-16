@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import sber.TODO.Project.Category;
+import sber.TODO.Project.Repeatable;
 
 import java.time.LocalDateTime;
 
@@ -34,6 +35,9 @@ public class ArchivedTask {
 
     @Column(nullable = false)
     private Category category;
+
+    @Column(nullable = false)
+    private Repeatable repeatable;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "client_id")

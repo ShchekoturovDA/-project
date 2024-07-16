@@ -86,7 +86,10 @@ public class TaskController {
     @GetMapping("/archive/{id}")
     public String archive(@PathVariable long id){
         Task task = taskService.findOneById(id).get();
-        ArchivedTask archivedTask = new ArchivedTask(task.getId(), task.getName(), task.getDescription(), task.getDate(), task.getPrior(), task.isDone(), task.getCategory(), task.getClient());
+        ArchivedTask archivedTask = new ArchivedTask(task.getId(),
+                task.getName(), task.getDescription(), task.getDate(),
+                task.getPrior(), task.isDone(), task.getCategory(), task.getRepeatable(),
+                task.getClient());
         archivedTaskService.save(archivedTask);
         return "redirect:/tasks/delete/" + id;
     }
