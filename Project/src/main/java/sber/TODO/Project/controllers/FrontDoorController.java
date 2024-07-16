@@ -16,12 +16,12 @@ public class FrontDoorController {
 
     @RequestMapping("/reg")
     public String regIn(Model model){
-        return "reg";
+        return "/reg";
     }
 
     @RequestMapping("/sign_in")
     public String signIn(Model model){
-        return "sign_in";
+        return "/sign_in";
     }
 
 
