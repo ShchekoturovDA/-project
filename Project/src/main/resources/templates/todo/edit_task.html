@@ -5,49 +5,50 @@
     <title>Поправка</title>
 </head>
 <body>
-    <form th:method="post" th:action="@{/tasks/edit/{id}(id=${task.getId()})}" th:object="${task}">
-        <label for="name"> name </label>
-        <input name="name" type="text" id="name" th:field="*{name}"/>
-        <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-        <br>
+<form th:method="post" th:action="@{/tasks/edit/{id}(id=${task.getId()})}" th:object="${task}">
+    <label for="name"> Название </label>
+    <input name="name" type="text" id="name" th:field="*{name}"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <br>
 
-        <label for="description"> description </label>
-        <input name="description" type="text" id="description" th:field="*{description}"/>
-        <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Name Error</div>
-        <br>
+    <label for="description"> Описание </label>
+    <input name="description" type="text" id="description" th:field="*{description}"/>
+    <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error
+    </div>
+    <br>
 
-        <label for="date"> Дата </label>
-        <input name="date" type="datetime-local" id="date" th:field="*{date}"/>
-        <div style="color:red" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Name Error</div>
-        <br>
+    <label for="date"> Дата </label>
+    <input name="date" type="datetime-local" id="date" value="2007-07-07T07:07"/>
+    <div style="color:red" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</div>
+    <br>
 
-        <label for="prior"> Приоритет </label>
-        <select name="prior" id="prior" th:field="*{prior}">
-            <option value=1>Срочно</option>
-            <option value=2>В темпе</option>
-            <option value=3>Подождёт</option>
-        </select>
+    <label for="prior"> Приоритет </label>
+    <select name="prior" id="prior" th:field="*{prior}">
+        <option value=1>Срочно</option>
+        <option value=2>В темпе</option>
+        <option value=3>Подождёт</option>
+    </select>
 
-        <br>
-        <label for="category"> Категория </label>
-        <select name="category" id="category" th:field="*{category}">
-            <option value='OTHER'>Всякое</option>
-            <option value='WORK'>Работа</option>
-            <option value='HEALTH'>Здоровье</option>
-            <option value='REST'>Отдых</option>
-        </select>
+    <br>
+    <label for="category"> Категория </label>
+    <select name="category" id="category" th:field="*{category}">
+        <option value='OTHER'>Всякое</option>
+        <option value='WORK'>Работа</option>
+        <option value='HEALTH'>Здоровье</option>
+        <option value='REST'>Отдых</option>
+    </select>
 
-        <br>
-        <label for="repeatable"> Частота </label>
-        <select name="repeatable" id="repeatable" th:field="*{repeatable}">
-            <option value='ONCE'>Уникальная</option>
-            <option value='DAY'>Ежедневная</option>
-            <option value='WEEK'>Еженедельная</option>
-            <option value='MONTH'>Ежемесячная</option>
-        </select>
+    <br>
+    <label for="repeatable"> Частота </label>
+    <select name="repeatable" id="repeatable" th:field="*{repeatable}">
+        <option value='ONCE'>Уникальная</option>
+        <option value='DAY'>Ежедневная</option>
+        <option value='WEEK'>Еженедельная</option>
+        <option value='MONTH'>Ежемесячная</option>
+    </select>
 
-        <input type="submit" value="Поменять">
-    </form>
+    <input type="submit" value="Поменять">
+</form>
 
 </body>
 </html>

@@ -5,38 +5,44 @@
     <title>Основная</title>
 </head>
 <body>
-   <p> Ваша страница </p>
-    <p>login</p>
-   <form action="/tasks/main" method="get">
-       <select name="filter" id="filter">
-           <option value="">Все</option>
-           <option value="done">Выполненые</option>
-           <option value="in_process">Невыполненые</option>
-       </select>
-       <input type="submit" value="Фильтр по статусу"/>
-   </form>
-   <form action="/tasks/search">
-       <input type="text" name="search" id="search">
-       <input type="submit" value="Поиск"/>
+<p> Ваша страница </p>
+<form action="/tasks/main" method="get">
+    <select name="filter" id="filter">
+        <option value="">Все</option>
+        <option value="done">Выполненые</option>
+        <option value="in_process">Невыполненые</option>
+    </select>
+    <select name="category" id="category">
+        <option value="">Все</option>
+        <option value="OTHER">Всякое</option>
+        <option value="WORK">Работа</option>
+        <option value="HEALTH">Здоровье</option>
+        <option value="REST">Отдых</option>
+    </select>
+    <input type="submit" value="Отфильтровать"/>
+</form>
+<form action="/tasks/search">
+    <input type="text" name="search" id="search">
+    <input type="submit" value="Поиск"/>
 
-       <label for="date"> Дата </label>
-       <input name="date" type="datetime-local" id="date"/>
+    <label for="date"> Дата </label>
+    <input name="date" type="datetime-local" id="date"/>
 
-   </form>
-   <div th:each = "archive : ${archives}">
-       <a style="color: gray" th:text="${archive.getName()}"
-          th:href="@{show/{id}(id=${archive.getId()})}">task</a>
-   </div>
-   <div th:each = "task : ${tasks}">
-       <a th:style="${task.isDone() == true ? 'color:gray;' : 'color:black;'}" th:text="${task.getName()}"
-            th:href="@{show/{id}(id=${task.getId()})}">task</a>
-       <a th:href="@{status/{id}(id=${task.getId()})}"> <input type="submit" value="Изменить статус"> </a>
-       <a th:if="${task.isDone() == true}" th:href="@{archive/{id}(id=${task.getId()})}"> <input type="submit" value="Архивировать"> </a>
-   </div>
+</form>
+<div th:each="archive : ${archives}">
+    <a style="color: gray" th:text="${archive.getName()}"
+       th:href="@{show/{id}(id=${archive.getId()})}">task</a>
+</div>
+<div th:each="task : ${tasks}">
+    <a th:style="${task.isDone() == true ? 'color:gray;' : 'color:black;'}" th:text="${task.getName()}"
+       th:href="@{show/{id}(id=${task.getId()})}">task</a>
+    <a th:href="@{status/{id}(id=${task.getId()})}"> <input type="submit" value="Изменить статус"> </a>
+    <a th:if="${task.isDone() == true}" th:href="@{archive/{id}(id=${task.getId()})}"> <input type="submit"
+                                                                                              value="Архивировать"> </a>
+</div>
 
-   <a href="/tasks/create">
-       <input type="submit" value="Создать новую задачу"/>
-   </a>
+<a href="/tasks/create">
+    <input type="submit" value="Создать новую задачу"/>
+</a>
 </body>
 </html>
-<!-- th:text="${client.getLogin()}" -->

@@ -5,51 +5,50 @@
     <title>Задача</title>
 </head>
 <body>
-    <div>
-        Название: <p th:text="${task.getName()}">name</p>
+<div>
+    Название: <p th:text="${task.getName()}">name</p>
 
-        Описание: <p th:text="${task.getDescription()}">description</p>
+    Описание: <p th:text="${task.getDescription()}">description</p>
 
-        Сроки: <p th:text="${task.getDate()}">name</p>
+    Сроки: <p th:text="${task.getDate()}">name</p>
 
-        Статус:
-        <span th:if="${task.isDone() == true}">Выполнено</span>
-        <span th:if="${task.isDone() == false}">Невыполнено</span>
+    Статус:
+    <span th:if="${task.isDone() == true}">Выполнено</span>
+    <span th:if="${task.isDone() == false}">Невыполнено</span>
 
-        <br>
-        Приоритет:
-        <span th:if="${task.getPrior() == 1}">Срочно</span>
-        <span th:if="${task.getPrior() == 2}">В темпе</span>
-        <span th:if="${task.getPrior() == 3}">Подождёт</span>
-
-        <br>
-        Категория:
-<!--        <span th:text="${task.getCategory()}"/>-->
-        <span th:if="${task.getCategory().toString() == 'OTHER'}">Всякое</span>
-        <span th:if="${task.getCategory().toString() == 'WORK'}">Работа</span>
-        <span th:if="${task.getCategory().toString() == 'HEALTH'}">Здоровье</span>
-        <span th:if="${task.getCategory().toString() == 'REST'}">Отдых</span>
-
-        <br>
-        Частота:
-        <span th:if="${task.getRepeatable().toString() == 'ONCE'}">Уникальная</span>
-        <span th:if="${task.getRepeatable().toString() == 'DAY'}">Ежедневная</span>
-        <span th:if="${task.getRepeatable().toString() == 'WEEK'}">Еженедельная</span>
-        <span th:if="${task.getRepeatable().toString() == 'MONTH'}">Ежемесячная</span>
-
-    </div>
-
-    <a th:if="${task.isDone == false}" th:href="@{/tasks/edit/{id}(id=${task.getId()})}">
-        <input type="submit" value="Поправить"/>
-    </a>
-    <br/>
-    <a th:href="@{/tasks/delete/{id}(id=${task.getId()})}">
-        <input type="submit" value="Удалить"/>
-    </a>
     <br>
-    <a th:href="@{/tasks/main}">
-        <input type="submit" value="Ок"/>
-    </a>
+    Приоритет:
+    <span th:if="${task.getPrior() == 1}">Срочно</span>
+    <span th:if="${task.getPrior() == 2}">В темпе</span>
+    <span th:if="${task.getPrior() == 3}">Подождёт</span>
+
+    <br>
+    Категория:
+    <span th:if="${task.getCategory().toString() == 'OTHER'}">Всякое</span>
+    <span th:if="${task.getCategory().toString() == 'WORK'}">Работа</span>
+    <span th:if="${task.getCategory().toString() == 'HEALTH'}">Здоровье</span>
+    <span th:if="${task.getCategory().toString() == 'REST'}">Отдых</span>
+
+    <br>
+    Частота:
+    <span th:if="${task.getRepeatable().toString() == 'ONCE'}">Уникальная</span>
+    <span th:if="${task.getRepeatable().toString() == 'DAY'}">Ежедневная</span>
+    <span th:if="${task.getRepeatable().toString() == 'WEEK'}">Еженедельная</span>
+    <span th:if="${task.getRepeatable().toString() == 'MONTH'}">Ежемесячная</span>
+
+</div>
+
+<a th:if="${task.isDone == false}" th:href="@{/tasks/edit/{id}(id=${task.getId()})}">
+    <input type="submit" value="Поправить"/>
+</a>
+<br/>
+<a th:href="@{/tasks/delete/{id}(id=${task.getId()})}">
+    <input type="submit" value="Удалить"/>
+</a>
+<br>
+<a th:href="@{/tasks/main}">
+    <input type="submit" value="Ок"/>
+</a>
 
 
 </body>

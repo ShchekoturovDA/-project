@@ -1,17 +1,14 @@
 package sber.TODO.Project.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import sber.TODO.Project.entities.Client;
-import sber.TODO.Project.services.ClientService;
-
-import java.net.URI;
-import java.net.URISyntaxException;
+import sber.TODO.Project.services.ClientService;;
 
 @RequestMapping("/clients")
 @Controller
@@ -23,18 +20,22 @@ public class ClientController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/add")
-    public String save(@ModelAttribute("client") Client client, Model model) {
-        if (!clientService.existByLogin(client)) {
-            client.setPassword(passwordEncoder.encode(client.getPassword()));
-            clientService.save(client);
-            return "redirect:/tasks/main";
+    public String save(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult, Model model) {
+        if (!bindingResult.hasErrors()) {
+            if (!clientService.existByLogin(client)) {
+                client.setPassword(passwordEncoder.encode(client.getPassword()));
+                clientService.save(client);
+                return "redirect:/tasks/main";
+            } else {
+                return "/reg";
+            }
         } else {
-            return "/reg";
+            return "/for_all/reg";
         }
     }
 
     @PostMapping("/sign_in")
-    public String sign(@ModelAttribute("client") Client client){
+    public String sign(@ModelAttribute("client") Client client) {
         if (clientService.existByLoginAndPasswordAndEmail(client)) {
             clientService.loadUserByUsername(client.getLogin());
             return "redirect:/tasks/main";
@@ -42,10 +43,4 @@ public class ClientController {
             return "/sign_in";
         }
     }
-
-/*
-    @GetMapping("/{id}")
-    public ResponseEntity<Client> get(@PathVariable long id){
-        return ResponseEntity.of(clientService.findById(id));
-    }*/
 }

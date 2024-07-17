@@ -4,11 +4,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import sber.TODO.Project.entities.ArchivedTask;
 import sber.TODO.Project.entities.Client;
-import sber.TODO.Project.entities.Task;
 import sber.TODO.Project.repositories.ArchivedTaskRepository;
-import sber.TODO.Project.repositories.TaskRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,16 +13,9 @@ import java.util.Optional;
 public class ArchivedTaskService {
     private final ArchivedTaskRepository archivedTaskRepository;
 
-    public ArchivedTaskService(ArchivedTaskRepository archivedtaskRepository){
+    public ArchivedTaskService(ArchivedTaskRepository archivedtaskRepository) {
         this.archivedTaskRepository = archivedtaskRepository;
     }
-
- /*   public List<ArchivedTask> findAllByString(String search) {
-    }
-
-   public List<ArchivedTask> findAllByStringAndDate(String search, LocalDateTime date) {
-        return archivedTaskRepository.findAllByStringAndDate(search, date, Sort.by("date", "prior").ascending());
-    }*/
 
     public void save(ArchivedTask archivedTask) {
         archivedTaskRepository.save(archivedTask);
@@ -40,6 +30,6 @@ public class ArchivedTaskService {
     }
 
     public List<ArchivedTask> findAllByStringAndClient(String search, Client client) {
-        return  archivedTaskRepository.findAllByStringAndClient(search, client, Sort.by("date", "prior").ascending());
+        return archivedTaskRepository.findAllByStringAndClient(search, client, Sort.by("date", "prior").ascending());
     }
 }

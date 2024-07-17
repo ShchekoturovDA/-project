@@ -10,18 +10,18 @@ import sber.TODO.Project.entities.Client;
 public class FrontDoorController {
 
     @RequestMapping("/")
-    public String justGet(){
+    public String justGet() {
         return "/for_all/index";
     }
 
     @RequestMapping("/reg")
-    public String regIn(Model model){
+    public String regIn(Model model) {
         model.addAttribute("client", new Client());
         return "/for_all/reg";
     }
 
     @RequestMapping("/sign_in")
-    public String signIn(Model model){
+    public String signIn(Model model) {
         model.addAttribute("client", new Client());
         return "/for_all/sign_in";
     }

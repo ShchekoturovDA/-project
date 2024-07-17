@@ -6,21 +6,24 @@
 </head>
 <body>
 
-    <form method="POST" th:action="@{/clients/add}" th:object="${client}">
-        <label for="login"> Логин </label>
-        <input name="login" type="text" id="login" th:field="*{login}"/>
-        <br>
+<form method="POST" th:action="@{/clients/add}" th:object="${client}">
+    <label for="login"> Логин </label>
+    <input name="login" type="text" id="login" th:field="*{login}"/>
+    <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</div>
+    <br>
 
-        <label for="email"> Почта </label>
-        <input name="email" type="text" id="email" th:field="*{email}"/>
-        <br>
+    <label for="email"> Почта </label>
+    <input name="email" type="text" id="email" th:field="*{email}"/>
+    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+    <br>
 
-        <label for="password"> Пароль </label>
-        <input name="password" type="password" id="password" th:field="*{password}"/>
-        <br>
+    <label for="password"> Пароль </label>
+    <input name="password" type="password" id="password" th:field="*{password}"/>
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+    <br>
 
-        <input type="submit" value="Регистрация">
-    </form>
+    <input type="submit" value="Регистрация">
+</form>
 
 </body>
 </html>

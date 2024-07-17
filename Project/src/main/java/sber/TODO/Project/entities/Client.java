@@ -1,6 +1,7 @@
 package sber.TODO.Project.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,20 +15,21 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Client implements Serializable {
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Напиши что-нибудь")
     @Column(nullable = false)
     private String login;
 
-    @NotEmpty
+    @NotEmpty(message = "Напиши что-нибудь")
     @Column(nullable = false)
     private String password;
 
-    @NotEmpty
+    @Email(message = "Это не email")
+    @NotEmpty(message = "Напиши что-нибудь")
     @Column(nullable = false)
     private String email;
 

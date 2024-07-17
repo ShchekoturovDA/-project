@@ -14,7 +14,7 @@ import java.util.Optional;
 public class TaskService {
     private final TaskRepository taskRepository;
 
-    public TaskService(TaskRepository taskRepository){
+    public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
@@ -23,11 +23,11 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public List<Task> findAll(){
+    public List<Task> findAll() {
         return taskRepository.findAll(Sort.by("date", "prior").ascending());
     }
 
-    public List<Task> findByDone(boolean done){
+    public List<Task> findByDone(boolean done) {
         return taskRepository.findAllByDone(done, Sort.by("date", "prior").ascending());
     }
 
@@ -48,4 +48,19 @@ public class TaskService {
         return taskRepository.findAllByStringAndClient(search, client, Sort.by("date", "prior").ascending());
     }
 
+    public List<Task> findByDateBeforeAndDone(LocalDateTime now, boolean done) {
+        return taskRepository.findByDateBeforeAndDone(now, done);
+    }
+
+    public void prolong(List<Task> tasks) {
+        for (Task task : tasks) {
+            switch (task.getRepeatable()) {
+                case ONCE -> task.setDone(true);
+                case DAY -> task.setDate(task.getDate().plusDays(1));
+                case WEEK -> task.setDate(task.getDate().plusWeeks(1));
+                case MONTH -> task.setDate(task.getDate().plusMonths(1));
+            }
+            save(task);
+        }
+    }
 }

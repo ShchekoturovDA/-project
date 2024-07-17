@@ -17,8 +17,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("SELECT t FROM Task t WHERE (t.name LIKE %?1% or t.description LIKE %?1%) AND t.client=?2")
     List<Task> findAllByStringAndClient(String search, Client client, Sort ascending);
 
-/*    @Query("SELECT t FROM Task t WHERE (t.name LIKE %?1% or t.description LIKE %?1%) and t.date <= ?2")
-    List<Task> findAllByStringAndDateAndClient(String search, LocalDateTime date, Client client, Sort ascending);*/
-
     List<Task> findAllByClient(Client client, Sort ascending);
+
+    List<Task> findByDateBeforeAndDone(LocalDateTime now, boolean done);
 }

@@ -33,26 +33,26 @@ public class SecurConfig {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-            registry.requestMatchers("/").permitAll();
-            registry.requestMatchers("/reg").permitAll();
-            registry.requestMatchers("/sign_in").permitAll();
-            registry.requestMatchers("clients/sign_in").permitAll();
-            registry.requestMatchers("clients/add").permitAll();
-            registry.requestMatchers("toDo/**").hasRole("USER");
-            registry.requestMatchers("tasks/**").hasRole("USER");
-            registry.anyRequest().authenticated();
-        }).formLogin(httpSecurityFormLoginConfigurer ->{
-                        httpSecurityFormLoginConfigurer.loginPage("/sign_in").defaultSuccessUrl("/tasks/main", true).permitAll();
-        }).build();
+                    registry.requestMatchers("/").permitAll();
+                    registry.requestMatchers("/reg").permitAll();
+                    registry.requestMatchers("/sign_in").permitAll();
+                    registry.requestMatchers("/clients/sign_in").permitAll();
+                    registry.requestMatchers("/clients/add").permitAll();
+                    registry.requestMatchers("toDo/**").hasRole("USER");
+                    registry.requestMatchers("tasks/**").hasRole("USER");
+                    registry.anyRequest().authenticated();
+                }).formLogin(httpSecurityFormLoginConfigurer -> {
+                    httpSecurityFormLoginConfigurer.loginPage("/sign_in").defaultSuccessUrl("/tasks/main", true).permitAll();
+                }).build();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return clientService;
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService());
         provider.setPasswordEncoder(getPasswordEncoder());

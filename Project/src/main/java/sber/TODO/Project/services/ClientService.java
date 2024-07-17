@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import sber.TODO.Project.entities.Client;
 import sber.TODO.Project.repositories.ClientRepository;
@@ -18,11 +17,11 @@ public class ClientService implements UserDetailsService {
     private final ClientRepository clientRepository;
 
     @Autowired
-    public ClientService(ClientRepository clientRepository){
+    public ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
-    public Client save(Client client){
+    public Client save(Client client) {
         return clientRepository.save(client);
     }
 
@@ -37,7 +36,7 @@ public class ClientService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Client> optionalClient = clientRepository.findByLogin(username);
-        if (optionalClient.isPresent()){
+        if (optionalClient.isPresent()) {
             Client client = optionalClient.get();
             return User.builder()
                     .username(client.getLogin())
@@ -50,7 +49,7 @@ public class ClientService implements UserDetailsService {
     }
 
     public boolean existByLoginAndPasswordAndEmail(Client client) {
-        return clientRepository.existsByLoginAndPasswordAndEmail(client.getLogin(), client.getPassword(), client.getEmail() );
+        return clientRepository.existsByLoginAndPasswordAndEmail(client.getLogin(), client.getPassword(), client.getEmail());
     }
 
     public Client findByLogin(String username) {
