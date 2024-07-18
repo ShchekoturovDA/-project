@@ -46,22 +46,35 @@ public class TaskController {
                                @RequestParam(required = false, defaultValue = "") String category, @AuthenticationPrincipal UserDetails userDetails) {
         Client client = clientService.findByLogin(userDetails.getUsername());
         List<Task> tasks = taskService.findByClient(client);
+        List<ArchivedTask> archives = archivedTaskService.findByClient(client);
         if (filter.equals("done")) {
             tasks = tasks.stream().filter(x -> x.isDone()).collect(Collectors.toList());
         } else if (filter.equals("in_process")) {
             tasks = tasks.stream().filter(x -> !x.isDone()).collect(Collectors.toList());
         }
         switch (category) {
-            case "OTHER" ->
+            case "OTHER" :
                     tasks = tasks.stream().filter(x -> x.getCategory() == Category.OTHER).collect(Collectors.toList());
-            case "WORK" ->
+                    archives = archives.stream().filter(x -> x.getCategory() == Category.OTHER).collect(Collectors.toList());
+                    break;
+            case "WORK" :
                     tasks = tasks.stream().filter(x -> x.getCategory() == Category.WORK).collect(Collectors.toList());
-            case "HEALTH" ->
+                    archives = archives.stream().filter(x -> x.getCategory() == Category.WORK).collect(Collectors.toList());
+                    break;
+            case "HEALTH" :
                     tasks = tasks.stream().filter(x -> x.getCategory() == Category.HEALTH).collect(Collectors.toList());
-            case "REST" ->
+                    archives = archives.stream().filter(x -> x.getCategory() == Category.HEALTH).collect(Collectors.toList());
+                    break;
+            case "REST" :
                     tasks = tasks.stream().filter(x -> x.getCategory() == Category.REST).collect(Collectors.toList());
+                    archives = archives.stream().filter(x -> x.getCategory() == Category.HEALTH).collect(Collectors.toList());
+                    break;
         }
-        model.addAttribute("tasks", tasks);
+        if (!filter.equals("archived")) {
+            model.addAttribute("tasks", tasks);
+        } else {
+            model.addAttribute("archives", archives);
+        }
         return "/todo/main";
     }
 
@@ -152,6 +165,7 @@ public class TaskController {
     @Scheduled(fixedDelay = 60000)
     public void prolonging() {
         List<Task> tasks = taskService.findByDateBeforeAndDone(LocalDateTime.now(), false);
-        taskService.prolong(tasks);
+        List<ArchivedTask> archives = archivedTaskService.findByDateBefore(LocalDateTime.now());
+        taskService.prolong(tasks, archives);
     }
 }

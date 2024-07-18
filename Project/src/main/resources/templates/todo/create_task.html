@@ -1,61 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Задача</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<p>Новая задача</p>-->
-<!--<p>login</p>-->
-<!--<form th:method="post" th:action="@{/tasks/add}" th:object="${task}">-->
-<!--    <label for="name"> Название </label>-->
-<!--    <input name="name" type="text" id="name" th:field="*{name}"/>-->
-<!--    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>-->
-<!--    <br>-->
-
-<!--    <label for="description"> Описание </label>-->
-<!--    <input name="description" type="text" id="description" th:field="*{description}"/>-->
-<!--    <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error-->
-<!--    </div>-->
-<!--    <br>-->
-
-<!--    <label for="date"> Дата </label>-->
-<!--    <input name="date" type="datetime-local" id="date" th:field="*{date}"/>-->
-<!--    <div style="color:red" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</div>-->
-<!--    <br>-->
-
-<!--    <label for="prior"> Приоритет </label>-->
-<!--    <select name="prior" id="prior" th:field="*{prior}">-->
-<!--        <option value=1>Срочно</option>-->
-<!--        <option value=2>В темпе</option>-->
-<!--        <option value=3>Подождёт</option>-->
-<!--    </select>-->
-
-<!--    <br>-->
-<!--    <label for="category"> Категория </label>-->
-<!--    <select name="category" id="category" th:field="*{category}">-->
-<!--        <option value='OTHER'>Всякое</option>-->
-<!--        <option value='WORK'>Работа</option>-->
-<!--        <option value='HEALTH'>Здоровье</option>-->
-<!--        <option value='REST'>Отдых</option>-->
-<!--    </select>-->
-
-<!--    <br>-->
-<!--    <label for="repeatable"> Частота </label>-->
-<!--    <select name="repeatable" id="repeatable" th:field="*{repeatable}">-->
-<!--        <option value='ONCE'>Уникальная</option>-->
-<!--        <option value='DAY'>Ежедневная</option>-->
-<!--        <option value='WEEK'>Еженедельная</option>-->
-<!--        <option value='MONTH'>Ежемесячная</option>-->
-<!--    </select>-->
-
-
-<!--    <input type="submit" value="New Task">-->
-<!--</form>-->
-
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -87,7 +29,7 @@
             font-size: 18px;
             margin-bottom: 10px;
             display: block;
-            width: 100%;
+            width: 90%;
             color: #FFD700;
         }
         input[type="text"], input[type="datetime-local"], select {

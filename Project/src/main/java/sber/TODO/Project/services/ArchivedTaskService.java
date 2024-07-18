@@ -6,6 +6,7 @@ import sber.TODO.Project.entities.ArchivedTask;
 import sber.TODO.Project.entities.Client;
 import sber.TODO.Project.repositories.ArchivedTaskRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,5 +32,13 @@ public class ArchivedTaskService {
 
     public List<ArchivedTask> findAllByStringAndClient(String search, Client client) {
         return archivedTaskRepository.findAllByStringAndClient(search, client, Sort.by("date", "prior").ascending());
+    }
+
+    public List<ArchivedTask> findByDateBefore(LocalDateTime now) {
+        return archivedTaskRepository.findByDateBefore(now);
+    }
+
+    public List<ArchivedTask> findByClient(Client client) {
+        return archivedTaskRepository.findByClient(client);
     }
 }

@@ -1,9 +1,13 @@
 package sber.TODO.Project.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import sber.TODO.Project.Repeatable;
+import sber.TODO.Project.entities.ArchivedTask;
 import sber.TODO.Project.entities.Client;
 import sber.TODO.Project.entities.Task;
+import sber.TODO.Project.repositories.ArchivedTaskRepository;
 import sber.TODO.Project.repositories.TaskRepository;
 
 import java.time.LocalDateTime;
@@ -13,8 +17,11 @@ import java.util.Optional;
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
+    private final ArchivedTaskRepository archivedTaskRepository;
 
-    public TaskService(TaskRepository taskRepository) {
+    @Autowired
+    public TaskService(TaskRepository taskRepository, ArchivedTaskRepository archivedTaskRepository) {
+        this.archivedTaskRepository = archivedTaskRepository;
         this.taskRepository = taskRepository;
     }
 
@@ -52,7 +59,7 @@ public class TaskService {
         return taskRepository.findByDateBeforeAndDone(now, done);
     }
 
-    public void prolong(List<Task> tasks) {
+    public void prolong(List<Task> tasks, List<ArchivedTask> archives) {
         for (Task task : tasks) {
             switch (task.getRepeatable()) {
                 case ONCE -> task.setDone(true);
@@ -61,6 +68,21 @@ public class TaskService {
                 case MONTH -> task.setDate(task.getDate().plusMonths(1));
             }
             save(task);
+        }
+        for (ArchivedTask archive : archives) {
+            if( archive.getRepeatable() != Repeatable.ONCE) {
+                switch (archive.getRepeatable()) {
+                    case DAY -> archive.setDate(archive.getDate().plusDays(1));
+                    case WEEK -> archive.setDate(archive.getDate().plusWeeks(1));
+                    case MONTH -> archive.setDate(archive.getDate().plusMonths(1));
+                }
+                Task archivedBefore = new Task(archive.getId(),
+                        archive.getName(), archive.getDescription(),
+                        archive.getDate(), archive.getPrior(), false,
+                        archive.getCategory(), archive.getRepeatable(), archive.getClient());
+                save(archivedBefore);
+                archivedTaskRepository.deleteById(archive.getId());
+            }
         }
     }
 }
