@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <style>
+        body {
+            background-color: #2B2B2B;
+            font-family: 'Arial', sans-serif;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 36px;
+            color: #FFD700;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: #444444;
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            padding: 20px;
+            display: inline-block;
+            text-align: left;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        label, input {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: block;
+            width: 90%;
+            color: #FFFFFF;
+        }
+        input[type="text"], input[type="password"] {
+            background-color: #333333;
+            border: 1px solid #FFD700;
+            border-radius: 5px;
+            padding: 10px;
+            color: #FFFFFF;
+        }
+        input[type="submit"] {
+            font-family: 'Arial', sans-serif;
+            font-size: 18px;
+            color: #FFFFFF;
+            background-color: #FFD700;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover {
+            background-color: #FFA500;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<h1>Регистрация</h1>
+<p>Вход в клуб алкоголиков анонимных</p>
+<form method="POST" th:action="@{/clients/add}" th:object="${client}">
+    <label for="login">Логин</label>
+    <input name="login" type="text" id="login" th:field="*{login}"/>
+    <div class="error" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</div>
+
+    <label for="email">Почта</label>
+    <input name="email" type="text" id="email" th:field="*{email}"/>
+    <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+
+    <label for="password">Пароль</label>
+    <input name="password" type="password" id="password" th:field="*{password}"/>
+    <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+
+    <input type="submit" value="Регистрация">
+</form>
+</body>
+</html>

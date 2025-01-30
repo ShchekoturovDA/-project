@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача</title>
+    <style>
+        body {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/4a/Hovhannes_Aivazovsky_-_The_Ninth_Wave_-_Google_Art_Project.jpg');
+            background-size: cover;
+            font-family: 'Georgia', serif;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+        }
+        p {
+            font-size: 24px;
+            color: #FFD700;
+            text-shadow: 1px 1px 2px #000;
+        }
+        form {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            padding: 20px;
+            display: inline-block;
+            text-align: left;
+        }
+        label, input, select {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: block;
+            width: 90%;
+            color: #FFD700;
+        }
+        input[type="text"], input[type="datetime-local"], select {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #FFD700;
+            border-radius: 5px;
+            padding: 10px;
+            color: #000;
+        }
+        input[type="submit"] {
+            font-family: 'Georgia', serif;
+            font-size: 18px;
+            color: #FFFFFF;
+            background-color: #1E90FF;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover {
+            background-color: #4682B4;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<p>Новая задача</p>
+<p>login</p>
+<form th:method="post" th:action="@{/tasks/add}" th:object="${task}">
+    <label for="name">Название</label>
+    <input name="name" type="text" id="name" th:field="*{name}"/>
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+
+    <label for="description">Описание</label>
+    <input name="description" type="text" id="description" th:field="*{description}"/>
+    <div class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</div>
+
+    <label for="date">Дата</label>
+    <input name="date" type="datetime-local" id="date" th:field="*{date}"/>
+    <div class="error" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</div>
+
+    <label for="prior">Приоритет</label>
+    <select name="prior" id="prior" th:field="*{prior}">
+        <option value=1>Срочно</option>
+        <option value=2>В темпе</option>
+        <option value=3>Подождёт</option>
+    </select>
+
+    <label for="category">Категория</label>
+    <select name="category" id="category" th:field="*{category}">
+        <option value='OTHER'>Всякое</option>
+        <option value='WORK'>Работа</option>
+        <option value='HEALTH'>Здоровье</option>
+        <option value='REST'>Отдых</option>
+    </select>
+
+    <label for="repeatable">Частота</label>
+    <select name="repeatable" id="repeatable" th:field="*{repeatable}">
+        <option value='ONCE'>Уникальная</option>
+        <option value='DAY'>Ежедневная</option>
+        <option value='WEEK'>Еженедельная</option>
+        <option value='MONTH'>Ежемесячная</option>
+    </select>
+
+    <input type="submit" value="New Task">
+</form>
+</body>
+</html>

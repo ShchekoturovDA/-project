@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Основная</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #FFF;
+            font-family: 'Metal Mania', sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1, p {
+            font-size: 36px;
+            color: #FFA500;
+        }
+        form, div, a {
+            margin-bottom: 20px;
+        }
+        select, input[type="text"], input[type="datetime-local"], input[type="submit"] {
+            font-family: 'Metal Mania', sans-serif;
+            font-size: 16px;
+            color: #000;
+            background-color: #FFA500;
+            border: 2px solid #FFF;
+            padding: 10px;
+            margin: 5px;
+        }
+        a {
+            color: #FFA500;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        a:hover {
+            color: #FFF;
+        }
+        .gray {
+            color: gray;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
+</head>
+<body>
+<h1>Megadeth Task Master</h1>
+<p> Ваши таски </p>
+<form action="/tasks/main" method="get">
+    <select name="filter" id="filter">
+        <option value="">Все активные</option>
+        <option value="done">Выполненые</option>
+        <option value="in_process">Невыполненые</option>
+        <option value="archived">Архивированные</option>
+    </select>
+    <select name="category" id="category">
+        <option value="">Все</option>
+        <option value="OTHER">Всякое</option>
+        <option value="WORK">Работа</option>
+        <option value="HEALTH">Здоровье</option>
+        <option value="REST">Отдых</option>
+    </select>
+    <input type="submit" value="Отфильтровать"/>
+</form>
+<form action="/tasks/search">
+    <input type="text" name="search" id="search">
+    <input type="submit" value="Поиск"/>
+    <label for="date"> Дата </label>
+    <input name="date" type="datetime-local" id="date"/>
+</form>
+<div th:each="archive : ${archives}">
+    <a class="gray" th:text="${archive.getName()}"
+       th:href="@{show/{id}(id=${archive.getId()})}">task</a>
+</div>
+<div th:each="task : ${tasks}">
+    <a th:style="${task.isDone() == true ? 'color:gray;' : 'color:orange;'}" th:text="${task.getName()}"
+       th:href="@{show/{id}(id=${task.getId()})}">task</a>
+    <a th:href="@{status/{id}(id=${task.getId()})}"> <input type="submit" value="Изменить статус"> </a>
+    <a th:if="${task.isDone() == true}" th:href="@{archive/{id}(id=${task.getId()})}"> <input type="submit"
+                                                                                              value="Архивировать"> </a>
+</div>
+<a href="/tasks/create">
+    <input type="submit" value="Создать новую задачу"/>
+</a>
+</body>
+</html>
